@@ -1,0 +1,19 @@
+created:
+    - database/factories/Models/CategoryFactory.php
+    - database/factories/Models/ActicleFactory.php
+    - database/factories/Models/TagFactory.php
+    - database/migrations/2020_09_09_173234_create_categories_table.php
+    - database/migrations/2020_09_09_173235_create_acticles_table.php
+    - database/migrations/2020_09_09_173236_create_tags_table.php
+    - database/migrations/2020_09_09_173236_create_acticle_tag_table.php
+    - app/Models/Category.php
+    - app/Models/Acticle.php
+    - app/Models/Tag.php
+    - database/seeds/ActicleSeeder.php
+    - database/seeds/CategorySeeder.php
+    - database/seeds/TagSeeder.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
+    Models\Category: { parent_id: 'id foreign:categories nullable', lft: 'integer unsigned nullable', rgt: 'integer unsigned nullable', depth: 'integer unsigned nullable', name: string, slug: 'string unique', timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Acticle } }
+    Models\Acticle: { category_id: 'id foreign', title: string, slug: 'string unique default:''''', content: text, image: 'string nullable', status: 'enum:PUBLISHED,DRAFT', date: date, featured: 'boolean default:0', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Tag } }
+    Models\Tag: { name: string, slug: 'string unique', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Acticle } }
